@@ -1,23 +1,25 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 
 /**
  * Created by usr on 12/9/2016.
+ *
  */
 public class Editor {
-    private JTextArea editorArea;
     private JPanel main;
-    private JButton runButton;
-    private JButton exitButton;
-    public Editor(){
+    private JTabbedPane tabbedPane1;
+    private JEditorPane codeInput;
+    private JTable table1;
+    private JMenuBar menu;
 
+    private Interpreter inter;
 
-
-        exitButton.addActionListener(e -> {
-            if(e.getActionCommand().equals("Exit"))
-                System.exit(0);
-        });
+    public Editor(Interpreter i){
+        inter=i;
+        createUIComponents();
 
 
         try {
@@ -29,8 +31,42 @@ public class Editor {
         }
         JFrame frame=new JFrame("editor");
         frame.setContentPane(main);
-        frame.setVisible(true);
+        frame.setJMenuBar(menu);
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
+
+    private void createUIComponents() {
+        menu=new JMenuBar();
+        JMenuItem save=new JMenuItem("save");
+        JMenuItem load=new JMenuItem("load");
+        JMenuItem exit=new JMenuItem("exit");
+        JMenuItem run=new JMenuItem("run");
+        ActionListener a=e -> {
+            switch (e.getActionCommand()){
+                case "save":save();break;
+                case "load":load();break;
+                case "exit":
+                    System.exit(0);
+                    break;
+                case "run":run();break;
+            }
+        };
+        save.addActionListener(a);
+        load.addActionListener(a);
+        exit.addActionListener(a);
+        run.addActionListener(a);
+        menu.add(save);
+        menu.add(load);
+        menu.add(run);
+        menu.add(exit);
+
+    }
+    private void save(){System.out.println("saving");}
+    private void load(){System.out.println("loading");}
+    private void run(){
+        inter.interpret(codeInput.getText());
+    }
+
 }

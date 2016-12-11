@@ -5,9 +5,9 @@
  */
 public class Driver {
     public static void main(String[] args){
-        System.out.println("Hello, Github!");
-        Editor editor =new Editor();//hey i think this is an editor.
-        Mainpanel main=new Mainpanel();
+        Interpreter inter=new Interpreter();
+        new Editor(inter);
+        new CanvasPanel(inter);
 
     }
 }
