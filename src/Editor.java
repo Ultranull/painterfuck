@@ -16,6 +16,7 @@ public class Editor {
     private JMenuBar menu;
 
     private Interpreter inter;
+    public boolean resetc=false;
 
     public Editor(Interpreter i){
         inter=i;
@@ -41,12 +42,14 @@ public class Editor {
         menu=new JMenuBar();
         JMenuItem save=new JMenuItem("save");
         JMenuItem load=new JMenuItem("load");
+        JMenuItem reset=new JMenuItem("reset");
         JMenuItem exit=new JMenuItem("exit");
         JMenuItem run=new JMenuItem("run");
         ActionListener a=e -> {
             switch (e.getActionCommand()){
                 case "save":save();break;
                 case "load":load();break;
+                case "reset":inter.reset();break;
                 case "exit":
                     System.exit(0);
                     break;
@@ -57,8 +60,10 @@ public class Editor {
         load.addActionListener(a);
         exit.addActionListener(a);
         run.addActionListener(a);
+        reset.addActionListener(a);
         menu.add(save);
         menu.add(load);
+        menu.add(reset);
         menu.add(run);
         menu.add(exit);
 

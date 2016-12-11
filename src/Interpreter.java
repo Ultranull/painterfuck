@@ -32,7 +32,7 @@ public class Interpreter {
 
             System.out.print(c.red + ",");
 
-            if(code.charAt(i)=='!') {
+            if(code.charAt(i)=='@') {
                 break;
             }
             else if(code.charAt(i)=='r') {
@@ -67,14 +67,14 @@ public class Interpreter {
                 }
                 continue;
             }
-            else if(code.charAt(i)=='V') {
+            else if(code.charAt(i)=='^') {
                 pointer.y-=1;
                 if(pointer.y<=0){
                     pointer.y=LENGTH-1;
                 }
                 continue;
             }
-            else if(code.charAt(i)=='^') {
+            else if(code.charAt(i)=='v') {
                 pointer.y+=1;
                 if(pointer.y>=LENGTH){
                     pointer.y=0;
@@ -120,6 +120,14 @@ public class Interpreter {
             for(int c=0;c<LENGTH;c++)
                 co[r][c]=Canvas[r][c].getColor();
         return co;
+    }
+    public void reset(){
+        for(int r=0;r<LENGTH;r++)
+            for(int c=0;c<LENGTH;c++)
+                Canvas[r][c]=new mColor(0,0,0);
+        pointer=new Point(0,0);
+        stack.clear();
+
     }
     private class mColor{
         int red;

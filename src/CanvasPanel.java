@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  */
 public class CanvasPanel extends JPanel {
-private Color[][] canvas;
+    private Color[][] canvas;
     private Interpreter inter;
     public CanvasPanel(Interpreter i){
         inter=i;
@@ -27,7 +27,7 @@ private Color[][] canvas;
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         canvas=inter.getCanvas();
-        int size=600/inter.LENGTH;
+        int size=(600/inter.LENGTH);
         for(int r=0;r<inter.LENGTH;r++) {
             for (int c = 0; c < inter.LENGTH; c++) {
                 g.setColor(canvas[r][c]);
