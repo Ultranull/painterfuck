@@ -10,9 +10,8 @@ public class Editor {
     private JMenuBar menu;
 
     private Interpreter inter;
-    public boolean resetc=false;
 
-    public Editor(Interpreter i){
+     Editor(Interpreter i){
         inter=i;
         createUIComponents();
 
@@ -64,7 +63,7 @@ public class Editor {
     }
     private void save(){try{saveFile();}catch (Exception e){e.printStackTrace();}}
     private void load(){codeInput.setText(fin());}
-    public void saveFile() throws FileNotFoundException {
+    private void saveFile() throws FileNotFoundException {
 
         JFileChooser chooser = new JFileChooser();
         chooser.showSaveDialog(null);
@@ -73,7 +72,7 @@ public class Editor {
         file.write(codeInput.getText());
         file.close();
     }
-    public String fin() {
+    private String fin() {
         String ans = "";
         try {
             BufferedReader infile = new BufferedReader(new FileReader(fileReader()));
@@ -85,7 +84,7 @@ public class Editor {
         }catch (Exception ignored){ans="failed";}
         return ans;
     }
-    public String fileReader() {
+    private String fileReader() {
         JFileChooser fileChooser = new JFileChooser();
         int status = fileChooser.showOpenDialog(null);
         if (status == JFileChooser.APPROVE_OPTION) {

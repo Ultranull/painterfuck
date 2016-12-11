@@ -2,10 +2,10 @@
 
 import javax.swing.*;
 import java.awt.*;
-public class CanvasPanel extends JPanel {
+ class CanvasPanel extends JPanel {
     private Color[][] canvas;
     private Interpreter inter;
-    public CanvasPanel(Interpreter i){
+     CanvasPanel(Interpreter i){
         inter=i;
         canvas=inter.getCanvas();
         Timer t=new Timer(0,e->repaint());
