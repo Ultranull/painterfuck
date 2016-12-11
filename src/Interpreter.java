@@ -1,15 +1,8 @@
 import java.awt.*;
-import java.util.Arrays;
-import java.util.LinkedList;
 
-/**
- * Created by usr on 12/9/2016.
- *
- */
 public class Interpreter {
     private mColor[][] Canvas;
     private Point pointer;
-    private LinkedList<String> stack;
     private boolean rm   = true;
     private boolean gm   = false;
     private boolean bm   = false;
@@ -23,15 +16,11 @@ public class Interpreter {
             for(int c=0;c<LENGTH;c++)
                 Canvas[r][c]=new mColor(0,0,0);
         pointer=new Point(0,0);
-        stack=new LinkedList<>();
 
     }
     public void interpret(String code){
         for(int i=0;i<code.length();i++){
             mColor c=Canvas[pointer.x][pointer.y];
-
-            System.out.print(c.red + ",");
-
             if(code.charAt(i)=='@') {
                 break;
             }
@@ -126,7 +115,6 @@ public class Interpreter {
             for(int c=0;c<LENGTH;c++)
                 Canvas[r][c]=new mColor(0,0,0);
         pointer=new Point(0,0);
-        stack.clear();
 
     }
     private class mColor{
@@ -150,9 +138,6 @@ public class Interpreter {
             if(r)red  =red  <=0?max:red  -1;
             if(g)green=green<=0?max:green-1;
             if(b)blue =blue <=0?max:blue -1;
-        }
-        public void setred(){
-            red=0xff;
         }
         public Color getColor(){
             return new Color(red,green,blue);

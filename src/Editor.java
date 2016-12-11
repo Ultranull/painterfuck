@@ -1,13 +1,7 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
+import java.io.*;
 
-/**
- * Created by usr on 12/9/2016.
- *
- */
 public class Editor {
     private JPanel main;
     private JTabbedPane tabbedPane1;
@@ -68,8 +62,39 @@ public class Editor {
         menu.add(exit);
 
     }
-    private void save(){System.out.println("saving");}
-    private void load(){System.out.println("loading");}
+    private void save(){try{saveFile();}catch (Exception e){e.printStackTrace();}}
+    private void load(){codeInput.setText(fin());}
+    public void saveFile() throws FileNotFoundException {
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.showSaveDialog(null);
+        String path = chooser.getSelectedFile().getAbsolutePath();
+        PrintWriter file = new PrintWriter(new File(path));
+        file.write(codeInput.getText());
+        file.close();
+    }
+    public String fin() {
+        String ans = "";
+        try {
+            BufferedReader infile = new BufferedReader(new FileReader(fileReader()));
+            String s;
+            while ((s = infile.readLine())!=null) {
+                ans += s.replaceAll("\\s+","");
+            }
+            infile.close();
+        }catch (Exception ignored){ans="failed";}
+        return ans;
+    }
+    public String fileReader() {
+        JFileChooser fileChooser = new JFileChooser();
+        int status = fileChooser.showOpenDialog(null);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            return (selectedFile.getParent() + "\\" + selectedFile.getName());
+        } else if (status == JFileChooser.CANCEL_OPTION)
+            return "canceled";
+        return "";
+    }
     private void run(){
         inter.interpret(codeInput.getText());
     }

@@ -1,13 +1,7 @@
-import sun.security.util.Length;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-
-/**
- * Created by usr on 12/9/2016.
- *
- */
 public class CanvasPanel extends JPanel {
     private Color[][] canvas;
     private Interpreter inter;
