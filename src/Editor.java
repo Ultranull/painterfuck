@@ -1,52 +1,65 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class Editor {
+ class Editor {
     private JPanel main;
-    private JTabbedPane tabbedPane1;
     private JEditorPane codeInput;
-    private JTable table1;
     private JMenuBar menu;
 
     private Interpreter inter;
 
-     Editor(Interpreter i){
-        inter=i;
+    Editor(Interpreter i) {
+        inter = i;
         createUIComponents();
 
 
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
-        JFrame frame=new JFrame("editor");
+        JFrame frame = new JFrame("editor");
         frame.setContentPane(main);
         frame.setJMenuBar(menu);
-        frame.setSize(600,600);
+        frame.setSize(600, 600);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
     private void createUIComponents() {
-        menu=new JMenuBar();
-        JMenuItem save=new JMenuItem("save");
-        JMenuItem load=new JMenuItem("load");
-        JMenuItem reset=new JMenuItem("reset");
-        JMenuItem exit=new JMenuItem("exit");
-        JMenuItem run=new JMenuItem("run");
-        ActionListener a=e -> {
-            switch (e.getActionCommand()){
-                case "save":save();break;
-                case "load":load();break;
-                case "reset":inter.reset();break;
+        main = new JPanel();
+        main.setLayout(new GridLayout(1,1));
+        JScrollPane scrollPanel = new JScrollPane();
+        main.add(scrollPanel);
+        codeInput = new JEditorPane();
+        scrollPanel.setViewportView(codeInput);
+        menu = new JMenuBar();
+        JMenuItem save = new JMenuItem("save");
+        JMenuItem load = new JMenuItem("load");
+        JMenuItem reset = new JMenuItem("reset");
+        JMenuItem exit = new JMenuItem("exit");
+        JMenuItem run = new JMenuItem("run");
+        ActionListener a = e -> {
+            switch (e.getActionCommand()) {
+                case "save":
+                    save();
+                    break;
+                case "load":
+                    load();
+                    break;
+                case "reset":
+                    inter.reset();
+                    break;
                 case "exit":
                     System.exit(0);
                     break;
-                case "run":run();break;
+                case "run":
+                    run();
+                    break;
             }
         };
         save.addActionListener(a);
@@ -61,8 +74,19 @@ public class Editor {
         menu.add(exit);
 
     }
-    private void save(){try{saveFile();}catch (Exception e){e.printStackTrace();}}
-    private void load(){codeInput.setText(fin());}
+
+    private void save() {
+        try {
+            saveFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void load() {
+        codeInput.setText(fin());
+    }
+
     private void saveFile() throws FileNotFoundException {
 
         JFileChooser chooser = new JFileChooser();
@@ -72,18 +96,22 @@ public class Editor {
         file.write(codeInput.getText());
         file.close();
     }
+
     private String fin() {
         String ans = "";
         try {
             BufferedReader infile = new BufferedReader(new FileReader(fileReader()));
             String s;
-            while ((s = infile.readLine())!=null) {
-                ans += s.replaceAll("\\s+","");
+            while ((s = infile.readLine()) != null) {
+                ans += s;
             }
             infile.close();
-        }catch (Exception ignored){ans="failed";}
+        } catch (Exception ignored) {
+            ans = "failed";
+        }
         return ans;
     }
+
     private String fileReader() {
         JFileChooser fileChooser = new JFileChooser();
         int status = fileChooser.showOpenDialog(null);
@@ -94,7 +122,8 @@ public class Editor {
             return "canceled";
         return "";
     }
-    private void run(){
+
+    private void run() {
         inter.interpret(codeInput.getText());
     }
 
