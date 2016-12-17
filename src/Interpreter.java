@@ -42,25 +42,25 @@ import java.awt.*;
                      break;
                  case '>':
                      pointer.x += 1;
-                     if (pointer.x >= LENGTH) {
+                     if (pointer.x == LENGTH) {
                          pointer.x = 0;
                      }
                      break;
                  case '<':
                      pointer.x -= 1;
-                     if (pointer.x <= 0) {
+                     if (pointer.x < 0) {
                          pointer.x = LENGTH - 1;
                      }
                      break;
                  case '^':
                      pointer.y -= 1;
-                     if (pointer.y <= 0) {
+                     if (pointer.y < 0) {
                          pointer.y = LENGTH - 1;
                      }
                      break;
                  case 'v':
                      pointer.y += 1;
-                     if (pointer.y >= LENGTH) {
+                     if (pointer.y == LENGTH) {
                          pointer.y = 0;
                      }
                      break;
@@ -138,5 +138,8 @@ import java.awt.*;
             return new Color(red,green,blue);
         }
     }
+      boolean ispointerloc(int x,int y){
+         return pointer.x==x&&pointer.y==y;
+     }
 }
 //well howdy partner

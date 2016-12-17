@@ -26,7 +26,10 @@ import java.awt.*;
             for (int c = 0; c < inter.LENGTH; c++) {
                 g.setColor(canvas[r][c]);
                 g.fillRect(r * size, c * size, size, size);
-
+                if(inter.ispointerloc(r,c)){
+                    g.setColor(new Color(0xffffff-canvas[r][c].getRGB()));
+                    g.drawRect(r * size, c * size, size, size);
+                }
             }
         }
 
