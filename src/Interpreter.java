@@ -19,82 +19,84 @@ import java.awt.*;
 
     }
      void interpret(String code){
-        for(int i=0;i<code.length();i++){
-            mColor c=Canvas[pointer.x][pointer.y];
-            if(code.charAt(i)=='@') {
-                break;
-            }
-            else if(code.charAt(i)=='r') {
-                rm=true;
-                gm=false;
-                bm=false;
-            }
-            else if(code.charAt(i)=='g') {
-                rm=false;
-                gm=true;
-                bm=false;
-            }
-            else if(code.charAt(i)=='b') {
-                rm=false;
-                gm=false;
-                bm=true;
-            }
-            else if(code.charAt(i)=='>') {
-                pointer.x+=1;
-                if(pointer.x>=LENGTH){
-                    pointer.x=0;
-                }
-            }
-            else if(code.charAt(i)=='<') {
-                pointer.x-=1;
-                if(pointer.x<=0){
-                    pointer.x=LENGTH-1;
-                }
-            }
-            else if(code.charAt(i)=='^') {
-                pointer.y-=1;
-                if(pointer.y<=0){
-                    pointer.y=LENGTH-1;
-                }
-            }
-            else if(code.charAt(i)=='v') {
-                pointer.y+=1;
-                if(pointer.y>=LENGTH){
-                    pointer.y=0;
-                }
-            }
-            else if(code.charAt(i)=='+') {
-                c.inccurrent(rm,gm,bm);
-            }
-            else if(code.charAt(i)=='-') {
-                c.deccurrent(rm,gm,bm);
-            }
-            else if(code.charAt(i) == '[') {
-                if(c.getcurrent(rm,gm,bm) == 0) {
-                    i++;
-                    while(loop > 0 || code.charAt(i) != ']') {
-                        if(code.charAt(i) == '[')
-                            loop++;
-                        if(code.charAt(i) == ']')
-                            loop--;
-                        i++;
-                    }
-                }
-            }
-            else if(code.charAt(i)== ']') {
-                if(c.getcurrent(rm,gm,bm) != 0) {
-                    i--;
-                    while(loop > 0 || code.charAt(i)!= '[') {
-                        if(code.charAt(i) == ']')
-                            loop++;
-                        if(code.charAt(i)== '[')
-                            loop--;
-                        i--;
-                    }
-                    i--;
-                }
-            }
-        }
+         label:
+         for (int i = 0; i < code.length(); i++) {
+             mColor c = Canvas[pointer.x][pointer.y];
+             switch (code.charAt(i)) {
+                 case '@':
+                     break label;
+                 case 'r':
+                     rm = true;
+                     gm = false;
+                     bm = false;
+                     break;
+                 case 'g':
+                     rm = false;
+                     gm = true;
+                     bm = false;
+                     break;
+                 case 'b':
+                     rm = false;
+                     gm = false;
+                     bm = true;
+                     break;
+                 case '>':
+                     pointer.x += 1;
+                     if (pointer.x >= LENGTH) {
+                         pointer.x = 0;
+                     }
+                     break;
+                 case '<':
+                     pointer.x -= 1;
+                     if (pointer.x <= 0) {
+                         pointer.x = LENGTH - 1;
+                     }
+                     break;
+                 case '^':
+                     pointer.y -= 1;
+                     if (pointer.y <= 0) {
+                         pointer.y = LENGTH - 1;
+                     }
+                     break;
+                 case 'v':
+                     pointer.y += 1;
+                     if (pointer.y >= LENGTH) {
+                         pointer.y = 0;
+                     }
+                     break;
+                 case '+':
+                     c.inccurrent(rm, gm, bm);
+                     break;
+                 case '-':
+                     c.deccurrent(rm, gm, bm);
+                     break;
+                 case '[':
+                     if (c.getcurrent(rm, gm, bm) == 0) {
+                         i++;
+                         while (loop > 0 || code.charAt(i) != ']') {
+                             if (code.charAt(i) == '[')
+                                 loop++;
+                             if (code.charAt(i) == ']')
+                                 loop--;
+                             i++;
+                         }
+                     }
+                     break;
+                 case ']':
+                     if (c.getcurrent(rm, gm, bm) != 0) {
+                         i--;
+                         while (loop > 0 || code.charAt(i) != '[') {
+                             if (code.charAt(i) == ']')
+                                 loop++;
+                             if (code.charAt(i) == '[')
+                                 loop--;
+                             i--;
+                         }
+                         i--;
+                     }
+                     break;
+             }
+         }
     }
      Color[][] getCanvas(){
         Color[][] co=new Color[LENGTH][LENGTH];

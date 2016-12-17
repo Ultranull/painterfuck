@@ -10,10 +10,10 @@ import java.awt.*;
         canvas=inter.getCanvas();
         Timer t=new Timer(0,e->repaint());
         t.start();
-        JFrame frame=new JFrame("canvas");
+         JFrame frame=new JFrame("canvas");
         frame.setContentPane(this);
         frame.setVisible(true);
-        frame.setSize(600,600);
+        frame.setSize(787,820);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -21,7 +21,7 @@ import java.awt.*;
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         canvas=inter.getCanvas();
-        int size=(600/inter.LENGTH);
+        int size=(int)Math.ceil(600d/inter.LENGTH);
         for(int r=0;r<inter.LENGTH;r++) {
             for (int c = 0; c < inter.LENGTH; c++) {
                 g.setColor(canvas[r][c]);

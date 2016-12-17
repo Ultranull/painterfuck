@@ -1,1 +1,19 @@
-ok so i started now i just need to keep working
+hey,
+ do you like the esoteric programming language brainfuck?
+ do you enjoy painting with difficult tools?
+then I have a tool for you:
+ painterfuck!
+
+enjoy the loving caress of brainfuck while your program draws a pretty picture.
+with 12 simple instructions!
+
+r,g,b   : opens a color for editing its value (when opening one, you close the others)
++,-     : increments or decrements the value of the last opened color
+^,v,<,> : moves the pointer in the direction being pointed
+[,]     : loop open and close (loop ends when the last opened color value is zero)
+
+after typing a program click run to see your masterpiece
+and if you dont like it click reset to make it go away
+save and load files containing painterfuck instructions from files on your computer
+
+have fun!
